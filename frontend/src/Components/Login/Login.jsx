@@ -40,7 +40,7 @@ const Login = () => {
                     className="title"
                     style={{ padding: "2vmax" }}
                 >
-                    Intra Chat
+                    Intra Share
                 </Typography>
 
                 <input

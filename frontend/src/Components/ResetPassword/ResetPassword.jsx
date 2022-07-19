@@ -39,7 +39,7 @@ const ResetPassword = () => {
                     style={{ padding: "2vmax" }}
                     className="title"
                 >
-                    Intra Chat
+                    Intra Share
                 </Typography>
 
                 <input
