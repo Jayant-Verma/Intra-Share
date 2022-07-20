@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 exports.isAuthenticated = async (req, res, next) => {
     try {
         const ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
+        console.log(ip);
         if (ip !== process.env.IP) {
             return res.status(401).json({
                 message: "You are not connected to organisation network",
