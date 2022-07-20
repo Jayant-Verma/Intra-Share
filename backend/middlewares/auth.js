@@ -6,7 +6,7 @@ exports.isAuthenticated = async (req, res, next) => {
         const ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
         if (ip !== process.env.IP) {
             return res.status(401).json({
-                message: "You are not connected to organisation network " + ip,
+                message: "You are not connected to organisation network",
             });
         }
 
