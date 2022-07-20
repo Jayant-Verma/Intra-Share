@@ -1,10 +1,10 @@
 import { Button, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useAlert } from "react-alert";
 import { createNewPost } from "../../Actions/Post";
 import "./NewPost.css";
 import { loadUser } from "../../Actions/User";
+import { toast } from "react-toastify";
 
 const NewPost = () => {
     const [image, setImage] = useState(null);
@@ -12,7 +12,6 @@ const NewPost = () => {
 
     const { loading, error, message } = useSelector((state) => state.like);
     const dispatch = useDispatch();
-    const alert = useAlert();
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
@@ -35,15 +34,15 @@ const NewPost = () => {
 
     useEffect(() => {
         if (error) {
-            alert.error(error);
+            toast.error(error);
             dispatch({ type: "clearErrors" });
         }
 
         if (message) {
-            alert.success(message);
+            toast.success(message);
             dispatch({ type: "clearMessage" });
         }
-    }, [dispatch, error, message, alert]);
+    }, [dispatch, error, message]);
 
     return (
         <div className="newPost">

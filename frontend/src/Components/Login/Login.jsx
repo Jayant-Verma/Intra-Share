@@ -4,13 +4,12 @@ import { Typography, Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../Actions/User";
-import { useAlert } from "react-alert";
+import { toast } from "react-toastify";
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const alert = useAlert();
     const dispatch = useDispatch();
     const { error } = useSelector((state) => state.user);
     const { message } = useSelector((state) => state.like);
@@ -23,14 +22,14 @@ const Login = () => {
 
     useEffect(() => {
         if (error) {
-            alert.error(error);
+            toast.error(error);
             dispatch({ type: "clearErrors" });
         }
         if (message) {
-            alert.success(message);
+            toast.success(message);
             dispatch({ type: "clearMessage" });
         }
-    }, [error, alert, dispatch, message]);
+    }, [error, dispatch, message]);
 
     return (
         <div className="login">

@@ -1,8 +1,8 @@
 import { Button, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { useAlert } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import { forgotPassword } from "../../Actions/User";
 import "./ForgotPassword.css";
 
@@ -12,8 +12,6 @@ const ForgotPassword = () => {
     const dispatch = useDispatch();
     const { error, loading, message } = useSelector((state) => state.like);
 
-    const alert = useAlert();
-
     const submitHandler = (e) => {
         e.preventDefault();
         dispatch(forgotPassword(email));
@@ -21,15 +19,15 @@ const ForgotPassword = () => {
 
     useEffect(() => {
         if (error) {
-            alert.error(error);
+            toast.error(error);
             dispatch({ type: "clearErrors" });
         }
 
         if (message) {
-            alert.success(message);
+            toast.success(message);
             dispatch({ type: "clearMessage" });
         }
-    }, [alert, error, dispatch, message]);
+    }, [error, dispatch, message]);
 
     return (
         <div className="forgotPassword">

@@ -1,8 +1,8 @@
 import { Avatar, Button, Dialog, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { useAlert } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import {
     followAndUnfollowUser,
     getUserPosts,
@@ -14,7 +14,6 @@ import User from "../User/User";
 
 const UserProfile = () => {
     const dispatch = useDispatch();
-    const alert = useAlert();
 
     const {
         user,
@@ -64,25 +63,25 @@ const UserProfile = () => {
 
     useEffect(() => {
         if (error) {
-            alert.error(error);
+            toast.error(error);
             dispatch({ type: "clearErrors" });
         }
 
         if (followError) {
-            alert.error(followError);
+            toast.error(followError);
             dispatch({ type: "clearErrors" });
         }
 
         if (userError) {
-            alert.error(userError);
+            toast.error(userError);
             dispatch({ type: "clearErrors" });
         }
 
         if (message) {
-            alert.success(message);
+            toast.success(message);
             dispatch({ type: "clearMessage" });
         }
-    }, [alert, error, message, followError, userError, dispatch]);
+    }, [error, message, followError, userError, dispatch]);
 
     return loading === true || userLoading === true ? (
         <Loader />

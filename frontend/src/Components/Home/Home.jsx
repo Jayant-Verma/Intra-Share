@@ -6,11 +6,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { getFollowingPosts, getAllUsers } from "../../Actions/User";
 import Loader from "../Loader/Loader";
 import { Typography } from "@mui/material";
-import { useAlert } from "react-alert";
+import { toast } from "react-toastify";
 
 const Home = () => {
     const dispatch = useDispatch();
-    const alert = useAlert();
 
     const { loading, posts, error } = useSelector(
         (state) => state.postOfFollowing
@@ -29,14 +28,14 @@ const Home = () => {
 
     useEffect(() => {
         if (likeError) {
-            alert.error(likeError);
+            toast.error(likeError);
             dispatch({ type: "clearError" });
         }
         if (message) {
-            alert.success(message);
+            toast.success(message);
             dispatch({ type: "clearMessage" });
         }
-    }, [alert, error, message, likeError, dispatch]);
+    }, [error, message, likeError, dispatch]);
 
     return loading === true || usersLoading === true ? (
         <Loader />

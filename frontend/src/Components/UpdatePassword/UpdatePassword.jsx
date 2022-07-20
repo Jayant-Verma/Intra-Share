@@ -1,8 +1,8 @@
 import { Button, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { useAlert } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import { updatePassword } from "../../Actions/User";
 import "./UpdatePassword.css";
 
@@ -10,7 +10,6 @@ const UpdatePassword = () => {
     const [oldPassword, setOldPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
 
-    const alert = useAlert();
     const dispatch = useDispatch();
 
     const { error, loading, message } = useSelector((state) => state.like);
@@ -22,15 +21,15 @@ const UpdatePassword = () => {
 
     useEffect(() => {
         if (error) {
-            alert.error(error);
+            toast.error(error);
             dispatch({ type: "clearErrors" });
         }
 
         if (message) {
-            alert.success(message);
+            toast.success(message);
             dispatch({ type: "clearMessage" });
         }
-    }, [dispatch, error, alert, message]);
+    }, [dispatch, error, message]);
 
     return (
         <div className="updatePassword">

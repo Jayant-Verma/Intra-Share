@@ -1,6 +1,7 @@
 import { Avatar, Button, Dialog, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { useAlert } from "react-alert";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { deleteMyProfile, getMyPosts, logoutUser } from "../../Actions/User";
@@ -11,7 +12,6 @@ import "./Account.css";
 
 const Account = () => {
     const dispatch = useDispatch();
-    const alert = useAlert();
 
     const { user, loading: userLoading } = useSelector((state) => state.user);
     const { loading, error, posts } = useSelector((state) => state.myPosts);
@@ -27,7 +27,7 @@ const Account = () => {
 
     const logoutHandler = () => {
         dispatch(logoutUser());
-        alert.success("Logged out successfully");
+        toast.warn("Logged out successfully");
     };
 
     useEffect(() => {
@@ -41,20 +41,20 @@ const Account = () => {
 
     useEffect(() => {
         if (error) {
-            alert.error(error);
+            toast.error(error);
             dispatch({ type: "clearErrors" });
         }
 
         if (likeError) {
-            alert.error(likeError);
+            toast.error(likeError);
             dispatch({ type: "clearErrors" });
         }
 
         if (message) {
-            alert.success(message);
+            toast.success(message);
             dispatch({ type: "clearMessage" });
         }
-    }, [alert, error, message, likeError, dispatch]);
+    }, [error, message, likeError, dispatch]);
 
     return loading === true || userLoading === true ? (
         <Loader />
