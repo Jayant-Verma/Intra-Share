@@ -15,36 +15,42 @@ const {
     getMyPosts,
     getUserPosts,
 } = require("../controllers/user");
-const { isAuthenticated } = require("../middlewares/auth");
+const { isConnected, isAuthenticated } = require("../middlewares/auth");
 
 const router = express.Router();
 
-router.route("/register").post(register);
+router.route("/register").post(isConnected, register);
 
-router.route("/login").post(login);
+router.route("/login").post(isConnected, login);
 
-router.route("/logout").get(logout);
+router.route("/logout").get(isConnected, logout);
 
-router.route("/follow/:id").get(isAuthenticated, followUser);
+router.route("/follow/:id").get(isConnected, isAuthenticated, followUser);
 
-router.route("/update/password").put(isAuthenticated, updatePassword);
+router
+    .route("/update/password")
+    .put(isConnected, isAuthenticated, updatePassword);
 
-router.route("/update/profile").put(isAuthenticated, updateProfile);
+router
+    .route("/update/profile")
+    .put(isConnected, isAuthenticated, updateProfile);
 
-router.route("/delete/me").delete(isAuthenticated, deleteMyProfile);
+router
+    .route("/delete/me")
+    .delete(isConnected, isAuthenticated, deleteMyProfile);
 
-router.route("/me").get(isAuthenticated, myProfile);
+router.route("/me").get(isConnected, isAuthenticated, myProfile);
 
-router.route("/my/posts").get(isAuthenticated, getMyPosts);
+router.route("/my/posts").get(isConnected, isAuthenticated, getMyPosts);
 
-router.route("/userposts/:id").get(isAuthenticated, getUserPosts);
+router.route("/userposts/:id").get(isConnected, isAuthenticated, getUserPosts);
 
-router.route("/user/:id").get(isAuthenticated, getUserProfile);
+router.route("/user/:id").get(isConnected, isAuthenticated, getUserProfile);
 
-router.route("/users").get(isAuthenticated, getAllUsers);
+router.route("/users").get(isConnected, isAuthenticated, getAllUsers);
 
-router.route("/forgot/password").post(forgotPassword);
+router.route("/forgot/password").post(isConnected, forgotPassword);
 
-router.route("/password/reset/:token").put(resetPassword);
+router.route("/password/reset/:token").put(isConnected, resetPassword);
 
 module.exports = router;

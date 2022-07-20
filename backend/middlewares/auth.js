@@ -1,7 +1,7 @@
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 
-exports.isAuthenticated = async (req, res, next) => {
+exports.isConnected = async (req, res, next) => {
     try {
         const ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
         if (ip !== process.env.IP) {
@@ -10,6 +10,16 @@ exports.isAuthenticated = async (req, res, next) => {
             });
         }
 
+        next();
+    } catch (error) {
+        return res.status(401).json({
+            message: error.message,
+        });
+    }
+};
+
+exports.isAuthenticated = async (req, res, next) => {
+    try {
         const { token } = req.cookies;
         if (!token) {
             return res.status(401).json({

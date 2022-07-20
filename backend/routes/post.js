@@ -1,5 +1,5 @@
 const express = require("express");
-const { isAuthenticated } = require("../middlewares/auth");
+const { isConnected, isAuthenticated } = require("../middlewares/auth");
 const {
     createPost,
     likeAndUnlikePost,
@@ -12,18 +12,18 @@ const {
 
 const router = express.Router();
 
-router.route("/post/upload").post(isAuthenticated, createPost);
+router.route("/post/upload").post(isConnected, isAuthenticated, createPost);
 router
     .route("/post/:id")
-    .get(isAuthenticated, likeAndUnlikePost)
-    .put(isAuthenticated, updateCaption)
-    .delete(isAuthenticated, deletePost);
+    .get(isConnected, isAuthenticated, likeAndUnlikePost)
+    .put(isConnected, isAuthenticated, updateCaption)
+    .delete(isConnected, isAuthenticated, deletePost);
 
-router.route("/posts").get(isAuthenticated, getPostOfFollowing);
+router.route("/posts").get(isConnected, isAuthenticated, getPostOfFollowing);
 
 router
     .route("/post/comment/:id")
-    .put(isAuthenticated, commentOnPost)
-    .delete(isAuthenticated, deleteComment);
+    .put(isConnected, isAuthenticated, commentOnPost)
+    .delete(isConnected, isAuthenticated, deleteComment);
 
 module.exports = router;
