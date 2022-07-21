@@ -1,5 +1,5 @@
 const express = require("express");
-const { isConnected, isAuthenticated } = require("../middlewares/auth");
+const { isAuthenticated, isConnected } = require("../middlewares/auth");
 const {
     createPost,
     likeAndUnlikePost,
