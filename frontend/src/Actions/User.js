@@ -34,7 +34,7 @@ export const loadUser = () => async (dispatch) => {
             type: "LoadUserRequest",
         });
 
-        const { data } = await axios.get("/api/v1/me");
+        const { data } = await axios.get("intra-share-api.vercel.app/api/v1/me");
 
         dispatch({
             type: "LoadUserSuccess",
