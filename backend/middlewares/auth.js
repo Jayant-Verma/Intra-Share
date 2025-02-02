@@ -11,7 +11,7 @@ exports.isConnected = async (req, res, next) => {
 
         if (ip !== process.env.IP) {
             return res.status(401).json({
-                message: "You are not connected to organisation network. Your IP is: " + ip + ". Please connect to " + process.env.IP,
+                message: "You are not connected to organisation network.",
             });
         }
 
