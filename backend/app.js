@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const cookieParser = require("cookie-parser");
-const path = require("path");
+const cors = require('cors');
 
 if (process.env.NODE_ENV !== "production") {
     console.log("Using dotenv development");
@@ -12,6 +12,7 @@ if (process.env.NODE_ENV !== "production") {
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
 app.use(cookieParser());
+app.use(cors());
 
 //importing Routes
 const post = require("./routes/post");
